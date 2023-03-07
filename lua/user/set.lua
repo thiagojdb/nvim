@@ -4,9 +4,9 @@ vim.opt.relativenumber = true
 vim.opt.errorbells = false
 vim.opt.mouse = nil
 
-vim.opt.tabstop = 4
+vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 vim.opt.clipboard = "unnamedplus"
@@ -26,89 +26,11 @@ vim.opt.ignorecase = true
 
 vim.opt.termguicolors = true
 
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 6
 vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
 
--- Give more space for displaying messages.
---vim.opt.cmdheight = 1
-
--- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
--- delays and poor user experience.
-vim.opt.updatetime = 1
-
--- Don't pass messages to |ins-completion-menu|.
-vim.opt.shortmess:append("c")
+vim.opt.updatetime = 10
 
 vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
-
-
-vim.o.foldcolumn = '1' -- '0' is not bad
-vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
-
--- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
-vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
-
-
-require('ufo').setup({
-    provider_selector = function(bufnr, filetype, buftype)
-        return {'treesitter', 'indent'}
-    end
-})
-
-
--- default configuration
-require('illuminate').configure({
-    -- providers: provider used to get references in the buffer, ordered by priority
-    providers = {
-        'lsp',
-        'treesitter',
-        'regex',
-    },
-    -- delay: delay in milliseconds
-    delay = 10,
-    -- filetype_overrides: filetype specific overrides.
-    -- The keys are strings to represent the filetype while the values are tables that
-    -- supports the same keys passed to .configure except for filetypes_denylist and filetypes_allowlist
-    filetype_overrides = {},
-    -- filetypes_denylist: filetypes to not illuminate, this overrides filetypes_allowlist
-    filetypes_denylist = {
-        'dirvish',
-        'fugitive',
-    },
-    -- filetypes_allowlist: filetypes to illuminate, this is overriden by filetypes_denylist
-    filetypes_allowlist = {},
-    -- modes_denylist: modes to not illuminate, this overrides modes_allowlist
-    -- See `:help mode()` for possible values
-    modes_denylist = {},
-    -- modes_allowlist: modes to illuminate, this is overriden by modes_denylist
-    -- See `:help mode()` for possible values
-    modes_allowlist = {},
-    -- providers_regex_syntax_denylist: syntax to not illuminate, this overrides providers_regex_syntax_allowlist
-    -- Only applies to the 'regex' provider
-    -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
-    providers_regex_syntax_denylist = {},
-    -- providers_regex_syntax_allowlist: syntax to illuminate, this is overriden by providers_regex_syntax_denylist
-    -- Only applies to the 'regex' provider
-    -- Use :echom synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
-    providers_regex_syntax_allowlist = {},
-    -- under_cursor: whether or not to illuminate under the cursor
-    under_cursor = true,
-    -- large_file_cutoff: number of lines at which to use large_file_config
-    -- The `under_cursor` option is disabled when this cutoff is hit
-    large_file_cutoff = nil,
-    -- large_file_config: config to use for large files (based on large_file_cutoff).
-    -- Supports the same keys passed to .configure
-    -- If nil, vim-illuminate will be disabled for large files.
-    large_file_overrides = nil,
-    -- min_count_to_highlight: minimum number of matches required to perform highlighting
-    min_count_to_highlight = 1,
-})
-
-

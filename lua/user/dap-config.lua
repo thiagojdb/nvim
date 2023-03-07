@@ -12,18 +12,9 @@ local M = {
   layouts = {
     {
       elements = {
-        { id = "scopes", size = 0.25 },
-        "breakpoints",
-        "watches",
-      },
-      size = 40, -- 40 columns
-      position = "left",
-    },
-    {
-      elements = {
         "console",
       },
-      size = 0.30,
+      size = 0.35,
       position = "bottom",
     },
   },

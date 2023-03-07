@@ -1,6 +1,5 @@
 local builtin = require('telescope.builtin');
 
-
 vim.keymap.set("n", "<leader>ps", function()
   builtin.grep_string({ search = vim.fn.input("Grep For > ") })
 end)
@@ -32,7 +31,7 @@ end)
 vim.keymap.set("n", "<leader>vrc", function()
   builtin.git_files({
     prompt_title = "< VimRC >",
-    cwd = '~/.config',
+    cwd = '~/.config/nvim',
     hidden = true,
   })
 end)
