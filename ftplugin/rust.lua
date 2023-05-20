@@ -118,15 +118,15 @@ local opts = {
     server = {
         on_attach = function(_, bufnr)
             require('user.lsp_keymaps').do_map_keys(bufnr);
+            vim.keymap.set("n", "<F5>", function() require('rust-tools').debuggables.debuggables()  end)
         end,
         standalone = true,
     },
     dap = {
-        adapter = {
-            type = "executable",
-            command = "lldb-vscode",
-            name = "rt_lldb",
-        },
+        adapter = require('rust-tools.dap').get_codelldb_adapter(
+        "/home/thiago/.local/share/nvim/mason/packages/codelldb/extension/adapter/codelldb",
+        "/home/thiago/.local/share/nvim/mason/packages/codelldb/extension/lldb/lib/liblldb.so"
+        )
     },
 }
 

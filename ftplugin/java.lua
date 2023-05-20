@@ -24,7 +24,7 @@ vim.list_extend(jdtls_bundles,
 
 local config = {
   cmd = {
-    'java',
+    '/home/thiago/.sdkman/candidates/java/22.3.r17-grl/bin/java',
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -37,7 +37,8 @@ local config = {
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
     '-jar',
     '/home/thiago/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
-    '-configuration', '/home/thiago/.local/share/nvim/mason/packages/jdtls/config_linux',
+    '-configuration',
+    '/home/thiago/.local/share/nvim/mason/packages/jdtls/config_linux',
     '-data', workspace_folder
   },
   root_dir = require('jdtls.setup').find_root({ '.git', 'mvnw', 'gradlew' }),
@@ -73,7 +74,7 @@ local config = {
           },
           {
             name = "JavaSE-17",
-            path = "/home/thiago/.sdkman/candidates/java/22.3.r17-nik/",
+            path = "/home/thiago/.sdkman/candidates/java/22.3.r17-grl/",
           },
         }
       },
@@ -97,7 +98,8 @@ local config = {
       },
       codeGeneration = {
         toString = {
-          template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
+          template =
+          "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
         },
         useBlocks = true,
       },

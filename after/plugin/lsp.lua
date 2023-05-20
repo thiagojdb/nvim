@@ -32,21 +32,21 @@ lsp.configure('lua_ls', {
 })
 
 
-lsp.configure('html', {
-  settings = {
-    html = {
-      format = {
-        templating = true,
-        wrapLineLength = 80,
-        wrapAttributes = 'auto',
-      },
-      hover = {
-        documentation = true,
-        references = true,
-      },
-    },
-  },
-})
+-- lsp.configure('html', {
+--   settings = {
+--     html = {
+--       format = {
+--         templating = true,
+--         wrapLineLength = 80,
+--         wrapAttributes = 'auto',
+--       },
+--       hover = {
+--         documentation = true,
+--         references = true,
+--       },
+--     },
+--   },
+-- })
 
 local cmp = require('cmp')
 
@@ -58,7 +58,7 @@ lsp.setup_nvim_cmp({
     { name = 'luasnip' },
   },
   mapping = cmp.mapping.preset.insert({
-    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-l>'] = cmp.mapping.complete(),
     ['<C-s>'] = cmp.mapping.scroll_docs( -4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
