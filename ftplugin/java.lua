@@ -24,18 +24,20 @@ vim.list_extend(jdtls_bundles,
 
 local config = {
   cmd = {
-    '/home/thiago/.sdkman/candidates/java/22.3.r17-grl/bin/java',
+    '/home/thiago/.sdkman/candidates/java/22.3.2.r17-grl/bin/java',
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
     '-Dlog.protocol=true',
     '-Dlog.level=ALL',
-    "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
+    -- "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
+    "-javaagent:" .. "/home/thiago/.local/share/nvim/mason/packages/jdtls/lombok.jar",
     '-Xms1g',
     '--add-modules=ALL-SYSTEM',
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
     '-jar',
+    --'/home/thiago/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
     '/home/thiago/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
     '-configuration',
     '/home/thiago/.local/share/nvim/mason/packages/jdtls/config_linux',
@@ -66,15 +68,15 @@ local config = {
         runtimes = {
           {
             name = "JavaSE-1.8",
-            path = "/home/thiago/.sdkman/candidates/java/21.3.1.r8-grl/",
+            path = "/home/thiago/.sdkman/candidates/java/8.0.302-open/",
           },
           {
             name = "JavaSE-11",
-            path = "/home/thiago/.sdkman/candidates/java/22.3.1.r11-grl/",
+            path = "/home/thiago/.sdkman/candidates/java/11.0.19-ms/",
           },
           {
             name = "JavaSE-17",
-            path = "/home/thiago/.sdkman/candidates/java/22.3.r17-grl/",
+            path = "/home/thiago/.sdkman/candidates/java/17.0.7-oracle/",
           },
         }
       },
@@ -93,7 +95,7 @@ local config = {
       format = {
         enabled = true,
         settings = {
-          url = "/home/thiago/.config/nvim/format/eclipse-java-google-style.xml"
+          url = "/home/thiago/.config/nvim/format/eclipse-google-java-style.xml"
         }
       },
       codeGeneration = {
@@ -108,7 +110,7 @@ local config = {
       }
     }
   },
-  on_attach = function(client, bufnr)
+  on_attach = function(_, bufnr)
     require('user.lsp_keymaps').do_map_keys(bufnr);
     require('jdtls').setup_dap({ hotcodereplace = 'auto' })
     require('jdtls.setup').add_commands()

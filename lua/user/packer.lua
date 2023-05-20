@@ -4,6 +4,7 @@ return require('packer').startup(function(use)
   use("nvim-telescope/telescope.nvim")
 
   use("mbbill/undotree")
+  use("dstein64/vim-startuptime")
 
   use("mfussenegger/nvim-jdtls")
   use {
