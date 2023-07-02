@@ -1,15 +1,10 @@
 require 'nvim-treesitter.configs'.setup {
-
-    ensure_installed = { "javascript", "typescript", "lua", "rust", "java" },
-
     sync_install = false,
-
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = true,
         disable = { 'html' },
     },
-
     playground = {
         enable = true,
         disable = {},

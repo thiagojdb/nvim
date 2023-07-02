@@ -1,105 +1,55 @@
-local lsp = require('lsp-zero').preset({
-  name = 'minimal',
-  set_lsp_keymaps = true,
-  manage_nvim_cmp = true,
-  suggest_lsp_servers = true,
-})
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    -- Enable completion triggered by <c-x><c-o>
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-lsp.ensure_installed({
-  'tsserver',
-  'lua_ls',
-  'rust_analyzer',
-})
+    -- Buffer local mappings.
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local ts = require('telescope.builtin');
+  local opts = { buffer = bufnr, remap = false }
+  vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
+  vim.keymap.set("n", "gi", function() vim.lsp.buf.implementation() end, opts)
+  vim.keymap.set("n", "gD", function() vim.lsp.buf.declaration() end, opts)
+  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+  vim.keymap.set("n", "<leader>ws", function() vim.lsp.buf.workspace_symbol() end, opts)
+  vim.keymap.set("n", "<leader>rr", function() ts.lsp_references() end, opts)
+  vim.keymap.set('n', 'gtd', function() ts.lsp_type_definitions() end, opts)
+  vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
+  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+  vim.keymap.set('x', '<F4>', function() vim.lsp.buf.code_action() end, opts)
+  vim.keymap.set("n", "<F4>", function() vim.lsp.buf.code_action() end, opts)
+  vim.keymap.set("i", "<F4>", function() vim.lsp.buf.code_action() end, opts)
+  vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format() end, opts)
+  vim.keymap.set("x", "<leader>f", function() vim.lsp.buf.format() end, opts)
+    vim.keymap.set("n", "<leader>dc", function() require'jdtls'.test_class() end, opts)
+    vim.keymap.set("n", "<leader>dn", function() require'jdtls'.test_nearest_method() end, opts)
 
-lsp.skip_server_setup({ 'jdtls' })
+local bufnr = vim.api.nvim_get_current_buf()
+vim.keymap.set("n", "<leader>l", "<cmd>w<CR><cmd>silent !prettier --write %<CR>",
+  { buffer = bufnr, remap = true, silent = true, desc = "Format HTML file" })
 
-lsp.configure('lua_ls', {
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { 'vim' }
-      },
-      format = {
-        enable = true,
-        defaultConfig = {
-          indent_style = "space",
-          indent_size = "1",
-          max_line_length = "80"
-        }
-      },
-    }
+  -- Diagnostics
+  --
+  local errorDiagnostics = {
+    bufnr = nil,
+    severity = 2,
   }
+  vim.keymap.set('n', '<leader>vd', function() ts.diagnostics({ errorDiagnostics }) end)
+  vim.keymap.set('n', '<leader>vad', function() ts.diagnostics() end)
+  vim.keymap.set("n", "<leader>ve", function() vim.diagnostic.open_float() end, opts)
+  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+  end,
 })
 
+require'lspconfig'.tsserver.setup{
+single_file_support = false}
+require'lspconfig'.tailwindcss.setup{}
 
--- lsp.configure('html', {
---   settings = {
---     html = {
---       format = {
---         templating = true,
---         wrapLineLength = 80,
---         wrapAttributes = 'auto',
---       },
---       hover = {
---         documentation = true,
---         references = true,
---       },
---     },
---   },
--- })
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local cmp = require('cmp')
-
-lsp.setup_nvim_cmp({
-  sources = {
-    { name = 'path' },
-    { name = 'nvim_lsp', },
-    { name = 'buffer',   keyword_length = 3 },
-    { name = 'luasnip' },
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-l>'] = cmp.mapping.complete(),
-    ['<C-s>'] = cmp.mapping.scroll_docs( -4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-
-  }),
-  formatting = {
-    -- changing the order of fields so the icon is the first
-    fields = { 'menu', 'abbr', 'kind' },
-
-    -- here is where the change happens
-    format = function(entry, item)
-      local menu_icon = {
-        nvim_lsp = 'λ',
-        luasnip = '⋗',
-        buffer = 'Ω',
-        path = '🖫',
-        nvim_lua = 'Π',
-      }
-
-      item.menu = menu_icon[entry.source.name]
-      return item
-    end,
-  },
-})
-
-lsp.on_attach(function(client, bufnr)
-  require('user.lsp_keymaps').do_map_keys(bufnr);
-end)
-
-lsp.set_preferences({
-  suggest_lsp_servers = false,
-  sign_icons = {
-    error = "",
-    warning = "",
-    hint = "",
-    information = "",
-    other = "﫠"
-  }
-})
-
-lsp.setup()
-
-vim.diagnostic.config({
-})
+require'lspconfig'.html.setup {
+  capabilities = capabilities,
+}
