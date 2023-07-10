@@ -14,15 +14,19 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 
 require("lazy").setup({
-    { "https://gitlab.com/schrieveslaach/sonarlint.nvim", as = "sonarlint.nvim" }
+    {'NeogitOrg/neogit'}
     , { "nvim-lua/plenary.nvim" }
 , { 'nvim-tree/nvim-web-devicons' }
 , { "nvim-telescope/telescope.nvim" }
 , { "windwp/nvim-autopairs" }
 , { "mbbill/undotree" }
-, { "catppuccin/nvim", as = "catppuccin" }
+,{
+  "folke/tokyonight.nvim",
+  lazy = false,
+  priority = 1000,
+  opts = {},
+}
 , { 'simrat39/rust-tools.nvim' }
-, { 'f-person/git-blame.nvim' }
 , { "nvim-treesitter/nvim-treesitter" }
 , { "romgrk/nvim-treesitter-context" }
 , { "ThePrimeagen/harpoon" }
@@ -33,7 +37,7 @@ require("lazy").setup({
 , { "theHamsta/nvim-dap-virtual-text" }
 , { 'RRethy/vim-illuminate' }
 , { 'nvim-lualine/lualine.nvim' },
-{'VonHeikemen/lsp-zero.nvim', branch = 'v2.x'},
+ {'VonHeikemen/lsp-zero.nvim', branch = 'v2.x'},
 { 'neovim/nvim-lspconfig' },
 {
     "williamboman/mason.nvim",

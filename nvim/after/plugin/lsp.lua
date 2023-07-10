@@ -53,3 +53,5 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 require'lspconfig'.html.setup {
   capabilities = capabilities,
 }
+
+require'lspconfig'.emmet_language_server.setup{}
