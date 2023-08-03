@@ -3,7 +3,6 @@ local root_markers = { 'gradlew', '.git' }
 local root_dir = require('jdtls.setup').find_root(root_markers)
 local workspace_folder = home ..
     "/.local/share/eclipse/" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
-if root_dir ~= nil then
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -25,7 +24,7 @@ if root_dir ~= nil then
 
     local config = {
         cmd = {
-            '/home/thiago/.sdkman/candidates/java/22.3.r19-grl/bin/java',
+            '/home/thiago/.sdkman/candidates/java/22.3.r17-nik/bin/java',
             '-Declipse.application=org.eclipse.jdt.ls.core.id1',
             '-Dosgi.bundles.defaultStartLevel=4',
             '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -38,7 +37,7 @@ if root_dir ~= nil then
             '--add-opens', 'java.base/java.util=ALL-UNNAMED',
             '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
             '-jar',
-            '/home/thiago/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+            '/home/thiago/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.500.v20230622-2056.jar',
             '-configuration',
             '/home/thiago/.local/share/nvim/mason/packages/jdtls/config_linux',
             '-data', workspace_folder
@@ -64,25 +63,30 @@ if root_dir ~= nil then
                         "sun.*",
                     },
                 },
-                configuration = {
-                    runtimes = {
-                        {
-                            name = "JavaSE-1.8",
-                            path =
-                            "/home/thiago/.sdkman/candidates/java/21.3.1.r8-grl/",
-                        },
-                        {
-                            name = "JavaSE-11",
-                            path =
-                            "/home/thiago/.sdkman/candidates/java/22.2.r11-grl/",
-                        },
-                        {
-                            name = "JavaSE-17",
-                            path =
-                            "/home/thiago/.sdkman/candidates/java/22.2.r17-grl/",
-                        },
-                    }
-                },
+--                configuration = {
+--                    runtimes = {
+--                        {
+--                            name = "JavaSE-1.8",
+--                            path =
+--                            "/home/thiago/.sdkman/candidates/java/8.0.372-tem/",
+--                        },
+--                        {
+--                            name = "JavaSE-11",
+--                            path =
+--                            "/home/thiago/.sdkman/candidates/java/11.0.19-tem/",
+--                        },
+--                        {
+--                            name = "JavaSE-17",
+--                            path =
+--                            "/home/thiago/.sdkman/candidates/java/17.0.7-tem/",
+--                        },
+--                        {
+--                            name = "JavaSE-20",
+--                            path =
+--                            "/home/thiago/.sdkman/candidates/java/20.0.1-oracle/",
+--                        },
+--                    }
+--                },
                 maven = {
                     downloadSources = true,
                 },
@@ -127,4 +131,3 @@ if root_dir ~= nil then
     }
 
     require('jdtls').start_or_attach(config);
-end

@@ -81,3 +81,8 @@ require('sonarlint').setup({
    }
 })
 
+require'lspconfig'.emmet_language_server.setup{}
+
+require'lspconfig'.jsonls.setup {
+  capabilities = capabilities,
+}

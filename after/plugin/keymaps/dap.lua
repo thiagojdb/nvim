@@ -17,7 +17,7 @@ vim.keymap.set("n", "<F8>", function() require 'dap'.step_over() end,
     { desc = 'DEBUG - Step Over' })
 vim.keymap.set("n", "<F9>", function() require 'dap'.continue() end,
     { desc = 'DEBUG - Continue' })
---vim.keymap.set("v", "<M-m>", function() require("dapui").eval() end)
+vim.keymap.set("v", "<M-m>", function() require("dapui").eval() end)
 --vim.keymap.set("n", "<M-{>", function()
 --    dapui.close(Layouts.REPL_CONSOLE)
 --    dapui.close(Layouts.REPL)
