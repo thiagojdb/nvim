@@ -36,3 +36,14 @@ vim.keymap.set("n", "<F9>", function() require 'dap'.continue() end,
 --    dapui.close(Layouts.REPL)
 --    dapui.toggle(Layouts.REPL_CONSOLE)
 --end)
+local dap = require('dap')
+
+dap.configurations.java = {
+  {
+    type = 'java';
+    request = 'attach';
+    name = "Debug (Attach) - Remote";
+    hostName = "127.0.0.1";
+    port = 5005;
+  },
+}
