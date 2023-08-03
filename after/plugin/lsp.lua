@@ -55,3 +55,9 @@ require'lspconfig'.html.setup {
 }
 
 require'lspconfig'.emmet_language_server.setup{}
+
+require'lspconfig'.jsonls.setup {
+  capabilities = capabilities,
+}
+
+require'lspconfig'.gopls.setup{}
